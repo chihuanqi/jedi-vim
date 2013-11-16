@@ -271,6 +271,13 @@ import sys
 import os
 sys.path.insert(0, os.path.join(vim.eval('expand("<sfile>:p:h:h")'), 'jedi'))
 
+# update the system path, to include the site-package sub path
+path = os.environ.get('PYTHON_SITE_PACKAGE_PATH')
+if path:
+    for i in [os.path.join(path, f) for f in os.listdir(path)]:
+        if os.path.isdir(i):
+            sys.path.append(i)
+
 # to display errors correctly
 import traceback
 
